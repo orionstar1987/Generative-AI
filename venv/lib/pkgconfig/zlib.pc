@@ -1,0 +1,13 @@
+prefix=/Users/yongchaohao/Documents/GitHub/Generative-AI/venv
+exec_prefix=/Users/yongchaohao/Documents/GitHub/Generative-AI/venv
+libdir=/Users/yongchaohao/Documents/GitHub/Generative-AI/venv/lib
+sharedlibdir=/Users/yongchaohao/Documents/GitHub/Generative-AI/venv/lib
+includedir=/Users/yongchaohao/Documents/GitHub/Generative-AI/venv/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
