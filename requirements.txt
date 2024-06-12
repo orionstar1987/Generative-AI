@@ -2,3 +2,5 @@ pandas
 matplotlib
 numpy
 openai
+python-dotenv
+ipykernel
