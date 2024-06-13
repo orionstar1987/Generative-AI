@@ -1,4 +1,2 @@
 .env
-venv/
 requirements.txt
-function-calling.*
