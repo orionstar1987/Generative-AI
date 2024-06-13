@@ -4,4 +4,4 @@ numpy
 openai
 python-dotenv
 ipykernel
-Seaborn
+seaborn
