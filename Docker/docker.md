@@ -24,3 +24,22 @@
     - It includes everything the image has, plus a writable layer on top. This allows the container to execute and make changes to its file system
     - A container is dynamic and can be started, stopped, moved, and deleted. It is the running state of an image and can be modified during its runtime
     - Containers are identified by unique IDs (e.g., d4c7e5c4e2a7) and can be named for easier management (e.g., webserver)
+
+
+## Container vs. Virtual Machine (VM)
+- Docker virtualize only the Application layer, i.e. is able to communicates with the host's OS Kernel
+    - Size is usually __smaller__ (in MBs)
+    - Runs much faster
+    - There can be __compatibility__ issue
+        - Uses the host's OS kernel
+        - For example, an new Linux image cannot communicates with an older version of the Linux kernel on the host machine
+        - Containers provide process-level isolation using namespaces and control groups (cgroups). This isolation is generally less robust than VMs but is sufficient for many use cases and offers better performance
+    - __Use case__: ideal for microservices architectures, continuous integration/continuous deployment (CI/CD) pipelines, and scenarios where quick scaling and lightweight resource usage are essential
+- VM virtualize both the Application and OS Kernel, i.e. VM has its own OS Kernel
+    - Each VM includes a full operating system (guest OS) along with the application and its dependencies
+    - Size is usually __large__ (in GBs)
+    - Runs comparatively slower
+    - Install VM on any OS, with __no compatibility__ issue
+        - VMs provide strong isolation as each VM is a separate entity with its own OS, kernel, and resources. 
+        - This level of isolation can enhance security and stability but comes at a cost of performance overhead
+    - __Use case__: suitable for running multiple OS types on the same hardware, providing strong isolation for multi-tenant environments, and running legacy applications that require specific OS versions.
