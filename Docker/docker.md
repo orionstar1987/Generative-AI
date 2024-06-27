@@ -49,9 +49,22 @@
 ```bash
 # Log in to Docker: 
 docker login
+
 # Change directory if needed. Make sure requirements.txt is in the same directory
 cd Docker
+
 # Build Docker image
 docker build -t welcome-app .
+
 # Check if Docker image has been created properly, either from the Docker Desktop app, or using the code below
 docker images
+
+# We can now access through our local host http://127.0.0.1:5050, or can do http://localhost:5050/
+# This app is now running inside the new Docker container
+# Note: http://172.17.0.2:5050 doesn't work, b/c this IP is the IP presented inside the container
+
+# Check new container created
+docker ps
+
+# Stop the Docker container (get container ID eacda46c7a43 from the command above)
+docker stop eacda46c7a43
