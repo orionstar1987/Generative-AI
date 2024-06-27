@@ -43,3 +43,15 @@
         - VMs provide strong isolation as each VM is a separate entity with its own OS, kernel, and resources. 
         - This level of isolation can enhance security and stability but comes at a cost of performance overhead
     - __Use case__: suitable for running multiple OS types on the same hardware, providing strong isolation for multi-tenant environments, and running legacy applications that require specific OS versions.
+
+## How to build Docker image
+
+```bash
+# Log in to Docker: 
+docker login
+# Change directory if needed. Make sure requirements.txt is in the same directory
+cd Docker
+# Build Docker image
+docker build -t welcome-app .
+# Check if Docker image has been created properly, either from the Docker Desktop app, or using the code below
+docker images
