@@ -68,3 +68,34 @@ docker ps
 
 # Stop the Docker container (get container ID eacda46c7a43 from the command above)
 docker stop eacda46c7a43
+
+```
+
+## Deploy to the Docker Hub Repository
+The objective is that now we can download and use it directly
+
+```bash
+# Log in Docker Hub https://hub.docker.com/
+
+# Rename to username/app_name (user name has to be in front)
+docker tag welcome-app haoyongc/welcome-app
+
+# 'latest' is to indicate which TAG version of the corresponding image to use, as there can be multiple TAGs for one image
+docker push haoyongc/welcome-app:latest
+
+# Now go to Docker Hub, you should see the app
+
+# Now we can remove the existing image, then we can download from Docker Repository
+docker image rm -f haoyongc/welcome-app
+
+# Now download from Docker Repository
+docker pull haoyongc/welcome-app:latest
+
+# Check haoyongc/welcome-app is pulled successfully
+docker images
+
+# Now we can run the app
+docker run -d -p 5050:5050 haoyongc/welcome-app:latest
+
+# And access from 
+http://127.0.0.1:5050 or http://localhost:5050/
