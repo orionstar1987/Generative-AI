@@ -13,8 +13,8 @@ def home():
 
 
 ## Define a function to handle the GET request at '/generate'
-
-@app.get("/generate")
+## 'get' is for taking request
+@app.get("/generate")  
 def generate(text: str):
     ## use the pipeline to generate txt from given input text
     output = pipe(text)
