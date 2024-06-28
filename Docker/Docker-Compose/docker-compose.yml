@@ -1,0 +1,19 @@
+version: '3'
+
+# This repalce the Docker Run command
+services:
+  product-service:
+    build: ./product
+    volumes:
+      - ./product/app
+    ports:
+      - 5001:80
+
+  website:
+    image: php:apache
+    volumes:
+      - ./website:/var/www/html
+    ports:
+      - 5000:80
+    depends_on:
+      - product-service

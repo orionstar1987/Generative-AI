@@ -12,3 +12,4 @@ uvicorn[standard]==0.17.*
 sentencepiece==0.1.*
 transformers==4.*
 flask
+flask-restful
