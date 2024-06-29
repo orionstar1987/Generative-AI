@@ -1,4 +1,4 @@
-from fastapi import FASTAPI
+from fastapi import FastAPI
 from transformers import pipeline
 
 ## Create a new FASTAPI app instance

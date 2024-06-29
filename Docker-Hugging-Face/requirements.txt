@@ -1,0 +1,14 @@
+pandas
+matplotlib
+numpy
+openai
+python-dotenv
+ipykernel
+seaborn
+torch
+fastapi
+requests==2.27.*
+uvicorn[standard]==0.17.*
+sentencepiece==0.1.*
+transformers==4.*
+flask
