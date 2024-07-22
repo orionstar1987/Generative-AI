@@ -10,6 +10,7 @@
     - Check from the "App" tab (Build, Container)
     - This message below indicates the app has started successfully
 
+```bash
 ===== Application Startup at 2024-07-22 18:06:16 =====
 
 INFO:     Started server process [1]
@@ -19,6 +20,8 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 
 INFO:     Uvicorn running on http://0.0.0.0:7860 (Press CTRL+C to quit)
+
+```
 
 - In the space, there are "3 dots" on the uppper-right conner next to "Settings". Choose "Embed this Space". Click the URL under "Direct URL", like https://orionstar1987-text2textwithdockers.hf.space
 
