@@ -13,7 +13,9 @@
 ===== Application Startup at 2024-07-22 18:06:16 =====
 
 INFO:     Started server process [1]
+
 INFO:     Waiting for application startup.
+
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:7860 (Press CTRL+C to quit)
 
