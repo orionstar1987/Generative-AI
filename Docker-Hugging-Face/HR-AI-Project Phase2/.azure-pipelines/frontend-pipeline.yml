@@ -1,0 +1,54 @@
+trigger: none
+pool: ASKHR_APP_POOL_LX
+
+parameters:
+  - name: environment
+    displayName: 'Environment'
+    type: string
+    default: Sandbox
+    values:
+      - Sandbox
+      - Dev
+      - Prod
+
+variables:  
+  - ${{ if eq(parameters.environment, 'Prod') }}:
+      - name: appName
+        value: 'WCH-E-P-APP-UI-01'
+      - name: envVar
+        value: 'prod'
+
+  - ${{ if eq(parameters.environment, 'Dev') }}:
+      - name: appName
+        value: 'WCH-E-D-APP-UI-01'
+      - name: envVar
+        value: 'qa'
+
+  - ${{ if eq(parameters.environment, 'Sandbox') }}:
+      - name: appName
+        value: 'WCH-E-S-APP-UI-01'
+      - name: envVar
+        value: 'dev'
+
+steps:
+- script: |
+    cd frontend
+    npm install && npm install --prefix ./server
+    npm run build:$(envVar)
+  displayName: 'Install dependencies and build React app'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'frontend/server'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/frontend.zip'
+  displayName: 'Archive React build files'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: ${{ parameters.environment }}-ASKHR
+    appName: $(appName)
+    package: '$(Build.ArtifactStagingDirectory)/frontend.zip'
+    runtimeStack: 'NODE|20-lts'
+  displayName: 'Deploy app'

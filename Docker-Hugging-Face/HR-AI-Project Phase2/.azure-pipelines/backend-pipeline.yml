@@ -1,0 +1,166 @@
+trigger:
+  branches:
+    include:
+      - dev_changes
+      
+parameters:
+  - name: environment
+    displayName: 'Environment'
+    type: string
+    default: Sandbox
+    values:
+      - Sandbox
+      - Dev
+      - Prod
+
+variables:
+  - ${{ if eq(parameters.environment, 'Prod') }}:
+      - name: kvName
+        value: 'WCH-E-P-KVT-COR-ASKHR-01'
+      - name: secretName
+        value: 'WCH-E-P-SQL-ASKHR-01-chatactivity-formatted-ConnectionString'
+      - name: aiSearchEndpointName
+        value: 'wch-e-p-srch-askhr-01-Endpoint'
+      - name: aiSearchApiKeyName
+        value: 'wch-e-p-srch-askhr-01-PrimaryKey'
+      - name: acrName
+        value: wchepacraskhr01
+      - name: imageName
+        value: flask-backend
+      - name: tag
+        value: $(Build.BuildId)
+      - name: System.Debug
+        value: true
+      - name: apiAppName
+        value: 'WCH-E-P-APP-API-01'
+      - name: apiAppRgName
+        value: 'wch-e-p-rgp-app-askhr-01'
+
+  - ${{ if eq(parameters.environment, 'Dev') }}:
+      - name: kvName
+        value: 'WCH-E-D-KVT-COR-ASKHR-01'
+      - name: secretName
+        value: 'WCH-E-D-SQL-ASKHR-01-chatactivity-formatted-ConnectionString'
+      - name: aiSearchEndpointName
+        value: 'wch-e-d-srch-askhr-01-Endpoint'
+      - name: aiSearchApiKeyName
+        value: 'wch-e-d-srch-askhr-01-PrimaryKey'
+      - name: acrName
+        value: wchedacraskhr01
+      - name: imageName
+        value: flask-backend
+      - name: tag
+        value: $(Build.BuildId)
+      - name: System.Debug
+        value: true
+      - name: apiAppName
+        value: 'WCH-E-D-APP-API-01'
+      - name: apiAppRgName
+        value: 'wch-e-d-rgp-app-askhr-01'
+
+  - ${{ if eq(parameters.environment, 'Sandbox') }}:
+      - name: kvName
+        value: 'WCH-E-S-KVT-COR-HRAI-01'
+      - name: secretName
+        value: 'WCH-E-S-SQL-HRAI-01-chatactivity-formatted-ConnectionString'
+      - name: aiSearchEndpointName
+        value: 'wch-e-s-srch-hrai-01-Endpoint'
+      - name: aiSearchApiKeyName
+        value: 'wch-e-s-srch-hrai-01-PrimaryKey'
+      - name: acrName
+        value: wchesacrhrai01
+      - name: imageName
+        value: flask-backend
+      - name: tag
+        value: $(Build.BuildId)
+      - name: System.Debug
+        value: true
+      - name: apiAppName
+        value: 'WCH-E-S-APP-API-01'
+      - name: apiAppRgName
+        value: 'wch-e-s-rgp-app-hrai-01'
+
+pool: ASKHR_APP_POOL_LX
+
+steps:
+- template: install-python-3-11.yml
+
+- script: |
+    pip install --user alembic sqlalchemy pymssql python-dotenv
+  displayName: 'Install Python Dependencies'
+
+- task: AzureCLI@2
+  displayName: 'Get Secret from Key Vault and Set as Pipeline Variable'
+  inputs:
+    azureSubscription: ${{ parameters.environment }}-ASKHR
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      secretValue=$(az keyvault secret show --vault-name $(kvName) --name $(secretName) --query value -o tsv)
+      aiSearchEndpointValue=$(az keyvault secret show --vault-name $(kvName) --name $(aiSearchEndpointName) --query value -o tsv)
+      aiSearchApiKeyValue=$(az keyvault secret show --vault-name $(kvName) --name $(aiSearchApiKeyName) --query value -o tsv)
+      echo "##vso[task.setvariable variable=CHATACTIVITY_DB_CONNECTIONSTRING;issecret=true]$secretValue"
+      echo "##vso[task.setvariable variable=AI_SEARCH_ENDPOINT;issecret=true]$aiSearchEndpointValue"
+      echo "##vso[task.setvariable variable=AI_SEARCH_API_KEY;issecret=true]$aiSearchApiKeyValue"
+      
+- script: |
+    export PATH="$HOME/.local/bin:$PATH"
+    
+    if [ -z "$CHATACTIVITY_DB_CONNECTIONSTRING" ]; then
+      echo "CHATACTIVITY_DB_CONNECTIONSTRING is empty."
+      exit 1
+    else
+      echo "CHATACTIVITY_DB_CONNECTIONSTRING is set."
+    fi
+    
+    cd backend
+    alembic upgrade head
+  displayName: 'Run Alembic Migrations'
+  env:
+    CHATACTIVITY_DB_CONNECTIONSTRING: $(CHATACTIVITY_DB_CONNECTIONSTRING)
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: ${{ parameters.environment }}-ASKHR
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
+      cd backend/ai-search
+
+      for file in *.json; do
+        index_name=$(jq -r '.name' "$file")
+        
+        az rest --method put \
+                --uri "$(AI_SEARCH_ENDPOINT)/indexes/$index_name?api-version=2024-09-01-preview" \
+                --headers "Content-Type=application/json" "api-key=$(AI_SEARCH_API_KEY)" \
+                --body @"$file"
+      done
+
+- task: AzureCLI@2
+  displayName: 'Build Image'
+  inputs:
+    azureSubscription: ${{ parameters.environment }}-ASKHR
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az acr login --name $(acrName)
+
+      # Build the Docker image
+      cd backend
+      docker build -t $(acrName).azurecr.io/$(imageName):1.1.$(Build.BuildId) -t $(acrName).azurecr.io/$(imageName):latest .
+      docker push $(acrName).azurecr.io/$(imageName) --all-tags
+
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+- ${{ if or(eq(parameters.environment, 'Sandbox'), eq(parameters.environment, 'Dev')) }}:
+  - task: AzureCLI@2
+    displayName: 'Restart API App'
+    inputs:
+      azureSubscription: ${{ parameters.environment }}-ASKHR
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az webapp restart --name $(apiAppName) --resource-group $(apiAppRgName)
+
+      workingDirectory: '$(System.DefaultWorkingDirectory)'

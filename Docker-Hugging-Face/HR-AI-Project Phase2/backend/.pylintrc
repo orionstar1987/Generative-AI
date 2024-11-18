@@ -1,0 +1,33 @@
+[MASTER]
+ignore=CVS, migrations
+extension-pkg-whitelist=
+load-plugins=
+
+[MESSAGES CONTROL]
+disable= C0103, W0718, E0401
+
+[REPORTS]
+reports=no
+
+[TYPECHECK]
+contextmanager-decorators=contextlib.contextmanager
+generated-members=
+
+[DESIGN]
+max-args=7
+max-attributes=10
+max-locals=20
+max-returns=6
+max-branches=12
+max-statements=50
+max-parents=7
+max-public-methods=20
+min-public-methods=1
+
+[FORMAT]
+# Maximum number of characters on a single line.
+max-line-length=400
+
+[SIMILARITIES]
+# Minimum lines number of a similarity.
+min-similarity-lines=4

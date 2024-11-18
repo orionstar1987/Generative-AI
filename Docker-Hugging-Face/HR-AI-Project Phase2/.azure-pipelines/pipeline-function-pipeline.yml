@@ -1,0 +1,62 @@
+trigger: none
+
+pool: ASKHR_APP_POOL_LX
+
+parameters:
+  - name: environment
+    displayName: 'Environment'
+    type: string
+    default: Sandbox
+    values:
+      - Sandbox
+      - Dev
+      - Prod
+
+variables:
+  - ${{ if eq(parameters.environment, 'Prod') }}:
+      - name: appName
+        value: 'WCH-E-P-AFA-ASKHR-01'
+
+  - ${{ if eq(parameters.environment, 'Dev') }}:
+      - name: appName
+        value: 'WCH-E-D-AFA-ASKHR-01'
+
+  - ${{ if eq(parameters.environment, 'Sandbox') }}:
+      - name: appName
+        value: 'WCH-E-S-AFA-HRAI-01'
+
+steps:
+- template: install-python-3-11.yml
+
+# - script: |
+#     python3.11 -m venv .venv
+#     source .venv/bin/activate
+#     # Install requirements here
+#     pip install -r ./data-pipeline/requirements.txt
+#   displayName: 'Set up Python 3.11 virtual environment'
+
+- script: |
+    cd data-pipeline
+    pip install -r requirements.txt
+  displayName: 'Install Python dependencies for Azure Function'
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+  displayName: 'Install .NET SDK (required for func CLI)'
+
+- script: |
+    sudo npm install -g azure-functions-core-tools@4
+  displayName: 'Install Azure Functions Core Tools (func CLI)'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: ${{ parameters.environment }}-ASKHR
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az account show
+      cd data-pipeline
+      func azure functionapp publish $(appName) --python
+  displayName: 'Deploy Azure Function using func CLI'

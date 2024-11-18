@@ -1,0 +1,21 @@
+{
+  "new_chat": "New Chat",
+  "expand_menu": "Expand Menu",
+  "recent_activity": "Recent Activity",
+  "ask_your_question": "Ask your question",
+  "check_for_mistakes": "AI-generated content may be incorrect. Check for mistakes",
+  "disclaimer_title": "DISCLAIMER",
+  "disclaimer_first": "This chatbot is designed to provide general guidance and information regarding human resources-related inquiries. While every effort has been made to ensure the accuracy and reliability of the information provided, it should not be considered a substitute for professional advice or consultation.",
+  "disclaimer_second": "The information provided by this chatbot is based on general principles and may not address specific circumstances or legal requirements applicable to your organization. Therefore, it is recommended to consult with a qualified HR professional or legal advisor before making any decisions or taking any actions based on the information provided by this chatbot.",
+  "disclaimer_third": "By using this chatbot, you acknowledge that the information provided is for informational purposes only and that we disclaim any liability for any loss or damage incurred as a result of relying on the information provided herein. Your use of this chatbot constitutes your acceptance of these terms and conditions.",
+  "cancel_btn": "Cancel",
+  "agree_btn": "I Agree",
+  "please_review_disclaimer": "Please take a moment to review the disclaimer before proceeding. Refresh your browser again to review the disclaimer",
+  "welcome_message": "Hello and welcome to Wind Creek! I'm your virtual HR assistant, here to help with all your HR needs. From onboarding to benefits and beyond, I'm here to support you every step of the way. We're thrilled to have you with us!",
+  "error_occured": "Error occurred. Try again...",
+  "session_error": "Please refresh your browser and try again.",
+  "session_error_title": "Something went wrong while creating new session.",
+  "bad_feedback": "I'm sorry if my previous answer wasn't what you were looking for. I'd love to try again and provide you with more information. Can I assist you with your question once more?",
+  "show_less": "Show Less",
+  "show_more": "Show More"
+}

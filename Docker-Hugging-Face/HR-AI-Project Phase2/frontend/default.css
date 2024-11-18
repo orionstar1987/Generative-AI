@@ -1,0 +1,40 @@
+html, body {
+  scroll-margin-top: 100px;
+  scroll-margin-bottom: 100px;
+}
+.messagebox-left, .messagebox-right {
+    position: relative;
+    float: right;
+    right: 20px;
+  }
+
+  .messagebox-right::before, .messagebox-left::before{
+    content: "";
+    position: absolute;
+    visibility: visible;
+    border: 10px solid transparent;
+    border-top: 10px solid white;
+    top: 0px;
+  }
+  .messagebox-right::after, .messagebox-left::after {
+    content: "";
+    position: absolute;
+    visibility: visible;
+    border: 10px solid transparent;
+    border-top: 10px solid #ffffff;
+    clear: both;
+    top: 0px;
+  }
+
+  .messagebox-right::before{
+    right: -10px;
+  }
+  .messagebox-right::after {        
+    right: -8px;
+  }
+  .messagebox-left::before{
+    left: -10px;
+  }
+  .messagebox-left::after {        
+    left: -8px;
+  }

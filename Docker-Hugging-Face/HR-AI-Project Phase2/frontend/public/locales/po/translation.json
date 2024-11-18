@@ -1,0 +1,21 @@
+{
+  "new_chat": "Chat Nobo",
+  "expand_menu": "Habrí Menu",
+  "recent_activity": "Aktividat Resiente",
+  "ask_your_question": "Hunta bo pregunta",
+  "check_for_mistakes": "Kontenido genera pa AI por ta inkorekto. Verifika si tin eror",
+  "disclaimer_title": "DESKARGO",
+  "disclaimer_first": "E chatbot aki ta diseñá pa duna hende guia i informacion general relashoná ku konsultashon di recurso humano. Aunke nos a hasi tur esfuerso pa asegura ku e informacion ta korekto i konfiabel, e no por konsiderá komo un substituto pa konsultashon profeshonal.",
+  "disclaimer_second": "E informacion ku e chatbot aki ta duna ta basa riba prinsipio general i por no ta aplikabel pa sierto situashon spesífiko òf rekisito legal di bo organisashon. Por eso, nos rekomendá ku bo konsulta ku un profesonal di HR òf konsehero legal antes di tuma desishon òf hasi akshon basa riba e informacion ku e chatbot a duna.",
+  "disclaimer_third": "Pa uza e chatbot aki, bo ta rekonosé ku e informacion ku ta wordu duna ta solamente pa propósito informativo i nos ta deskargá nos mes di kualke responsablidat pa pèrdida òf daño ku ta resultá di konfiá riba e informacion akí. Uzo di e chatbot aki ta konsistí na bo akseptashon di e termino i kondishon nan.",
+  "cancel_btn": "Kanselá",
+  "agree_btn": "Mi ta de akuerdo",
+  "please_review_disclaimer": "Tuma un momento pa repasa e deskargo promé di sigui. Refreska bo browser pa bolbe wak e deskargo.",
+  "welcome_message": "Bon bini na Wind Creek! Mi ta bo asistente virtual di HR, aki pa yudabo ku tur bo nesesidatnan di HR. Desde onboarding pa benefisio i mas, mi ta aki pa suporta bo tur paso di e kaminda. Nos ta felis di tene bo ku nos!",
+  "error_occured": "A pasa un error. Pruébalo atrobe...",
+  "session_error": "Refreska bo browser i pruébalo atrobe.",
+  "session_error_title": "Tin algu ku a bai robes durante kreashon di seshon nobo.",
+  "bad_feedback": "Perdonami si mi anterior respuesta no ta loke bo tabata buska. Mi ta deseá probá di nobo pa duna bo mas informacion. Mi por yudabo ku bo pregunta atrobe?",
+  "show_less": "Mustra Menos",
+  "show_more": "Mustra Mas"
+}

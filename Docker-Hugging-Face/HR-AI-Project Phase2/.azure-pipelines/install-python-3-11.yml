@@ -1,0 +1,23 @@
+steps:
+- script: |
+    #!/bin/bash
+    if command -v python3.11 &> /dev/null
+    then
+        echo "Python 3.11 is already installed."
+        python3.11 --version
+    else
+        echo "Python 3.11 is not installed. Proceeding with installation."
+        sudo apt-get update
+        sudo apt-get install -y build-essential zlib1g-dev libffi-dev libssl-dev
+        cd /tmp
+        wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
+        tar xzf Python-3.11.0.tgz
+        cd Python-3.11.0
+        ./configure --enable-optimizations
+        make -j $(nproc)
+        sudo make altinstall
+        python3.11 --version
+        sudo ln -sf /usr/local/bin/python3.11 /usr/bin/python
+        sudo ln -sf /usr/local/bin/pip3.11 /usr/bin/pip
+    fi
+  displayName: 'Compile and Install Python 3.11'

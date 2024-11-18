@@ -1,0 +1,21 @@
+{
+  "new_chat": "Nuevo Chat",
+  "expand_menu": "Expandir Menú",
+  "recent_activity": "Actividad Reciente",
+  "ask_your_question": "Haz tu pregunta",
+  "check_for_mistakes": "El contenido generado por IA puede ser incorrecto. Verifica los errores",
+  "disclaimer_title": "DESCARGO DE RESPONSABILIDAD",
+  "disclaimer_first": "Este chatbot está diseñado para proporcionar orientación general e información sobre consultas relacionadas con recursos humanos. Aunque se ha hecho todo lo posible para garantizar la precisión y fiabilidad de la información proporcionada, no debe considerarse un sustituto del asesoramiento profesional o la consulta.",
+  "disclaimer_second": "La información proporcionada por este chatbot se basa en principios generales y puede no abordar circunstancias específicas o requisitos legales aplicables a su organización. Por lo tanto, se recomienda consultar con un profesional de RRHH cualificado o un asesor legal antes de tomar decisiones o emprender acciones basadas en la información proporcionada por este chatbot.",
+  "disclaimer_third": "Al utilizar este chatbot, usted reconoce que la información proporcionada es solo con fines informativos y que rechazamos cualquier responsabilidad por cualquier pérdida o daño incurrido como resultado de confiar en la información proporcionada aquí. El uso de este chatbot constituye su aceptación de estos términos y condiciones.",
+  "cancel_btn": "Cancelar",
+  "agree_btn": "Estoy de acuerdo",
+  "please_review_disclaimer": "Por favor, tómese un momento para revisar el descargo de responsabilidad antes de continuar. Refresque su navegador nuevamente para revisar el descargo de responsabilidad.",
+  "welcome_message": "¡Hola y bienvenido a Wind Creek! Soy tu asistente virtual de RRHH, aquí para ayudarte con todas tus necesidades de recursos humanos. Desde la incorporación hasta los beneficios y más allá, estoy aquí para apoyarte en cada paso del camino. ¡Estamos encantados de tenerte con nosotros!",
+  "error_occured": "Ocurrió un error. Inténtalo de nuevo...",
+  "session_error": "Por favor, refresque su navegador e inténtelo de nuevo.",
+  "session_error_title": "Algo salió mal al crear una nueva sesión.",
+  "bad_feedback": "Lo siento si mi respuesta anterior no fue lo que estabas buscando. Me encantaría intentarlo de nuevo y ofrecerte más información. ¿Puedo ayudarte con tu pregunta una vez más?",
+  "show_less": "Mostrar menos",
+  "show_more": "Mostrar más"
+}
